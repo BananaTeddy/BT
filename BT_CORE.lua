@@ -1,12 +1,12 @@
 -- [BT_API]
 
+BT_CORE = {}
 
-
-function GetVersion()
-    return coreData.version
+function BT_CORE.GetVersion()
+    return BT_CORE.version
 end
 
-function Refuel(limit)
+function BT_CORE.Refuel(limit)
     if limit == nil then
         print("Fuel threshold cannot be nil")
         return
@@ -37,16 +37,16 @@ function Refuel(limit)
     turtle.select(previousSlot)
 end
 
-function RefuelMax(limit)
-    Refuel(turtle.getFuelLimit())
+function BT_CORE.RefuelMax(limit)
+    BT_CORE.Refuel(turtle.getFuelLimit())
 end
 
-function UpdateFuelList(item)
-    -- TODO: write to file
+function BT_CORE.UpdateFuelList(item)
+    -- TODO: write item to file
 end
 
 
-function HasInventoryFreeSlot()
+function BT_CORE.HasInventoryFreeSlot()
 
     local slotsOccupied = 0
 
@@ -60,7 +60,7 @@ function HasInventoryFreeSlot()
 
 end
 
-function GetPartiallyStackedItems()
+function BT_CORE.GetPartiallyStackedItems()
     local items = {}
 
     for slot = 1, 16 do
@@ -75,8 +75,16 @@ function GetPartiallyStackedItems()
     end
 end
 
+function BT_CORE.ReadLinesIntoTable_Test(file)
+    local lines = {}
+    for line in io.lines(file) do
+        lines[#lines+1] = line
+    end
 
-function ReadLinesIntoTable(filepath)
+    return lines
+end
+
+function BT_CORE.ReadLinesIntoTable(filepath)
     local lines = {}
 
     if fs.exists(filepath) then
@@ -96,8 +104,9 @@ function ReadLinesIntoTable(filepath)
     return lines
 end
 
+function BT_CORE.Initialize()
+    BT_CORE.version = 6
+    BT_CORE.fuelItems = BT_CORE.ReadLinesIntoTable_Test('FUEL_ITEMS')
+end
 
-local coreData = {
-    version = 6,
-    fuelItems = ReadLinesIntoTable('FUEL_ITEMS.lua')
-}
+BT_CORE.Initialize()

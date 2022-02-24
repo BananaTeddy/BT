@@ -2,19 +2,27 @@
 -- stripmining programm by BananaTeddy
 -- version 5
 
-local args = {...}
+local args = {40, 40}
 
-os.loadAPI('BT_API.lua')
+local btLoaded = require('BT_CORE')
+if btLoaded == false then
+    error('BT_CORE not loaded')
+end
 
+local fuels = BT_CORE.fuelItems
+for _, v in pairs(fuels) do
+    print(v)
+end
 
-if BT_API.GetVersion() < 4 then
+if BT_CORE.GetVersion() < 4 then
     print("BananaTeddy API is outdated!");
-    print("Please update from pastebin.com/vnEX8VMz");
+    print("Please update from ");
     error();
 end
 
+
 if #args ~= 2 then
-    color = BT_API.isColor();
+    color = BT_CORE.isColor();
     if color then
         term.setTextColor(colors.red);
     end
@@ -88,7 +96,7 @@ local liquids = {
 }
 
 while turtle.getFuelLevel() < ROUTE_LENGTH do
-    local success = BT_API.Refuel(ROUTE_LENGTH);
+    local success = BT_CORE.Refuel(ROUTE_LENGTH);
     if not success then
         local deficit = ROUTE_LENGTH - turtle.getFuelLevel();
         if color then
@@ -104,7 +112,7 @@ end
 
 function StackItems()
 
-    local partiallyStackedItems = BT_API.GetPartiallyStackedItems()
+    local partiallyStackedItems = BT_CORE.GetPartiallyStackedItems()
     if #partiallyStackedItems < 2 then
         -- we need at least 2 partially stacked items to move items between slots
         return
@@ -150,8 +158,8 @@ local function forward()
         end
         break;
     end
-    if BT_API.isInvFull("slot") then
-        BT_API.Refuel();
+    if BT_CORE.isInvFull("slot") then
+        BT_CORE.Refuel();
         clearInventory();
     end
 end
