@@ -1,9 +1,6 @@
 -- [BT_API]
 
-local coreData = {
-    version = 6,
-    fuelItems = ReadLinesIntoTable('FUEL_ITEMS.lua')
-}
+
 
 function GetVersion()
     return coreData.version
@@ -98,3 +95,9 @@ function ReadLinesIntoTable(filepath)
 
     return lines
 end
+
+
+local coreData = {
+    version = 6,
+    fuelItems = ReadLinesIntoTable('FUEL_ITEMS.lua')
+}
