@@ -2,27 +2,22 @@
 -- stripmining programm by BananaTeddy
 -- version 5
 
-local args = {40, 40}
+local args = {...}
 
-local btLoaded = require('BT_CORE')
-if btLoaded == false then
+local btCoreLoaded = require('BT_CORE')
+if btCoreLoaded == false then
     error('BT_CORE not loaded')
-end
-
-local fuels = BT_CORE.fuelItems
-for _, v in pairs(fuels) do
-    print(v)
 end
 
 if BT_CORE.GetVersion() < 4 then
     print("BananaTeddy API is outdated!");
-    print("Please update from ");
+    print('Please update from https://raw.githubusercontent.com/BananaTeddy/ComputerCraft-Programs/main/BT_CORE.lua');
     error();
 end
 
 
 if #args ~= 2 then
-    color = BT_CORE.isColor();
+    color = term.isColor();
     if color then
         term.setTextColor(colors.red);
     end
@@ -37,8 +32,8 @@ local BRANCH_LENGTH = tonumber(args[2])
 local ROUTE_LENGTH = (BRANCH_LENGTH * 4 * BRANCHES) + (BRANCHES * 3)
 
 if ROUTE_LENGTH > 1e5 then
-    print('Route exceeds 100,000 blocks. Turtle may run out of fuel.', 80)
-    print('Are you sure you want to start this operation?', 80)
+    print('Route exceeds 100,000 blocks. Turtle may run out of fuel.')
+    print('Are you sure you want to start this operation? (y/n)')
 
     local answer = read()
 
@@ -56,58 +51,44 @@ local enderSlot = nil;
 local clearInventory;
 
 --prepare tables
-local desiredItems = {
-    'denseores:block0',
-    'ThermalFoundation:Ore',
-    'minecraft:gold_ore',
-    'minecraft:iron_ore',
-    'minecraft:redstone_ore',
-    'minecraft:lapis_ore',
-    'minecraft:diamond_ore',
-    'minecraft:emerald_ore',
-    'minecraft:coal_ore',
-    'appliedenergistics2:tile.OreQuartz'
-}
+local desiredItems = BT_CORE.ReadLinesIntoTable_Test('WHITELIST')
 
-local undesiredItems = {
-    'minecraft:cobblestone',
-    'minecraft:gravel',
-    'minecraft:dirt',
-    'minecraft:planks',
-    'chisel:limestone',
-    'chisel:diorite',
-    'chisel:granite',
-    'chisel:andesite',
-    'ProjRed:Core:projectred.core.part',
-    'BigReactors:YelloriteOre',
-    'Botania:mushroom',
-    'TConstruct:ore.berries.one',
-    'TConstruct:oreBerries',
-    'minecraft:flint',
-    'appliedenergistics2:tile.OreQuartzCharged'
-}
+print('Whitelisted Items:')
+for _, v in pairs(desiredItems) do
+    print(v)
+end
 
-local liquids = {
-    'minecraft:water',
-    'minecraft:flowing_water',
-    'minecraft:lava',
-    'minecraft:flowing_lava',
-    'BuildCraft|Energy:blockOi'
-}
+local undesiredItems = BT_CORE.ReadLinesIntoTable_Test('BLACKLIST')
 
-while turtle.getFuelLevel() < ROUTE_LENGTH do
-    local success = BT_CORE.Refuel(ROUTE_LENGTH);
-    if not success then
-        local deficit = ROUTE_LENGTH - turtle.getFuelLevel();
-        if color then
-            term.setTextColor(colors.red);
+print('Blacklisted Items: ')
+for _, v in pairs(undesiredItems) do
+    print(v)
+end
+
+local fluids = BT_CORE.ReadLinesIntoTable_Test('FLUIDS')
+print('Fluids: ')
+for _, v in pairs(fluids) do
+    print(v)
+end
+
+if turtle.getFuelLevel() < ROUTE_LENGTH then
+    BT_CORE.Refuel(ROUTE_LENGTH - turtle.getFuelLevel())
+    -- if we still have less than needed
+    if turtle.getFuelLevel() < ROUTE_LENGTH then
+        local deficit = ROUTE_LENGTH - turtle.getFuelLevel()
+
+        print('Not enough fuel for given route ' .. BRANCHES .. ' ' .. BRANCH_LENGTH)
+        print('Need ' .. deficit .. ' more fuel')
+        print('Start anyway? (y/n)')
+
+        local answer = read()
+
+        if (answer == 'n' or answer == 'N') then
+            error('Operation was cancelled')
         end
-        print('Not enough fuel for desired route.');
-        print("Need fuel for " .. deficit .. " blocks to start.")
-        term.setTextColor(colors.white);
-        error();
     end
 end
+
 
 
 function StackItems()
@@ -122,6 +103,10 @@ function StackItems()
         -- stack items
     end
 
+end
+
+local function Forward()
+    
 end
 
 local function forward()

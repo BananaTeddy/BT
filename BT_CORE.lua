@@ -2,6 +2,11 @@
 
 BT_CORE = {}
 
+function BT_CORE.Initialize()
+    BT_CORE.version = 6
+    BT_CORE.fuelItems = BT_CORE.ReadLinesIntoTable_Test('FUEL_ITEMS')
+end
+
 function BT_CORE.GetVersion()
     return BT_CORE.version
 end
@@ -42,7 +47,23 @@ function BT_CORE.RefuelMax(limit)
 end
 
 function BT_CORE.UpdateFuelList(item)
-    -- TODO: write item to file
+    local previousSlot = turtle.getSelectedSlot()
+
+    for slot = 1, 16 do
+        turtle.select(slot)
+        local isFuel = turtle.refuel(0)
+        if isFuel then
+            local item = turtle.getItemDetail()
+            for _, v in pairs(BT_CORE.fuelItems) do
+                if v == item.name then
+                    return
+                end
+            end
+            -- fuel item was not found in list
+            BT_CORE.fuelItems[#BT_CORE.fuelItems+1] = item.name
+        end
+    end
+    BT_CORE.WriteTableIntoFile('FUEL_ITEMS', BT_CORE.fuelItems)
 end
 
 
@@ -75,14 +96,6 @@ function BT_CORE.GetPartiallyStackedItems()
     end
 end
 
-function BT_CORE.ReadLinesIntoTable_Test(file)
-    local lines = {}
-    for line in io.lines(file) do
-        lines[#lines+1] = line
-    end
-
-    return lines
-end
 
 function BT_CORE.ReadLinesIntoTable(filepath)
     local lines = {}
@@ -104,9 +117,13 @@ function BT_CORE.ReadLinesIntoTable(filepath)
     return lines
 end
 
-function BT_CORE.Initialize()
-    BT_CORE.version = 6
-    BT_CORE.fuelItems = BT_CORE.ReadLinesIntoTable_Test('FUEL_ITEMS')
+function BT_CORE.WriteTableIntoFile(filepath, data)
+    local file = fs.open(filepath, 'w')
+
+    for _, v in pairs(data) do
+        file.write(v)
+    end
+    file.close()
 end
 
 BT_CORE.Initialize()
