@@ -9,11 +9,14 @@ if btCoreLoaded == false then
     error('BT_CORE not loaded')
 end
 
-if BT_CORE.GetVersion() < 4 then
+
+if BT_CORE.GetVersion() < 6 then
     print("BananaTeddy API is outdated!");
-    print('Please update from https://raw.githubusercontent.com/BananaTeddy/ComputerCraft-Programs/main/BT_CORE.lua');
+    print('Please update using')
+    print('wget https://raw.githubusercontent.com/BananaTeddy/ComputerCraft-Programs/main/BT_CORE.lua BT_CORE');
     error();
 end
+BT_CORE.LoadTurtleAPI()
 
 
 if #args ~= 2 then
