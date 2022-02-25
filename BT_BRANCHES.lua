@@ -92,7 +92,7 @@ if turtle.getFuelLevel() < ROUTE_LENGTH then
     end
 end
 
-
+error('nope')
 
 function StackItems()
 

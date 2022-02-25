@@ -1,5 +1,5 @@
-local bridge = peripherals.find('rsBridge')
-local monitor = peripherals.find('monitor')
+local bridge = peripheral.find('rsBridge')
+local monitor = peripheral.find('monitor')
 
 local itemCount
 local maxItemCount
