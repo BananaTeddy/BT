@@ -54,28 +54,28 @@ local enderSlot = nil;
 local clearInventory;
 
 --prepare tables
-local desiredItems = BT_CORE.ReadLinesIntoTable_Test('WHITELIST')
+local desiredItems = BT_CORE.ReadLinesIntoTable('WHITELIST')
 
 print('Whitelisted Items:')
 for _, v in pairs(desiredItems) do
     print(v)
 end
 
-local undesiredItems = BT_CORE.ReadLinesIntoTable_Test('BLACKLIST')
+local undesiredItems = BT_CORE.ReadLinesIntoTable('BLACKLIST')
 
 print('Blacklisted Items: ')
 for _, v in pairs(undesiredItems) do
     print(v)
 end
 
-local fluids = BT_CORE.ReadLinesIntoTable_Test('FLUIDS')
+local fluids = BT_CORE.ReadLinesIntoTable('FLUIDS')
 print('Fluids: ')
 for _, v in pairs(fluids) do
     print(v)
 end
 
 if turtle.getFuelLevel() < ROUTE_LENGTH then
-    BT_CORE.Refuel(ROUTE_LENGTH - turtle.getFuelLevel())
+    BT_CORE.Turtle.Refuel(ROUTE_LENGTH - turtle.getFuelLevel())
     -- if we still have less than needed
     if turtle.getFuelLevel() < ROUTE_LENGTH then
         local deficit = ROUTE_LENGTH - turtle.getFuelLevel()
@@ -109,6 +109,19 @@ function StackItems()
 end
 
 local function Forward()
+    if turtle.detect() then
+        turtle.dig()
+    end
+
+    while not turtle.forward() do
+        turtle.attack()
+        turtle.dig()
+    end
+
+    while turtle.detectUp() do
+        turtle.digUp()
+        sleep(0.45)
+    end
     
 end
 
