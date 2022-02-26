@@ -11,7 +11,8 @@ local files = {
     whitelist = 'whitelist.txt',
     blacklist = 'blacklist.txt',
     fluids = 'fluids.txt',
-    fuels = 'fuels.txt'
+    fuels = 'fuels.txt',
+    cobble = 'Cobble.lua'
 }
 
 for alias, file in pairs(files) do

@@ -1,7 +1,3 @@
--- [BT_BRANCHES]
--- stripmining programm by BananaTeddy
--- version 5
-
 local args = {...}
 
 local btCoreLoaded = require('BT_API')

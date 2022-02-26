@@ -1,5 +1,3 @@
--- [BT_TURTLE]
-
 Turtle = {}
 
 function Turtle.Initialize()
@@ -75,6 +73,16 @@ function Turtle.HasInventoryFreeSlot()
 
     return slotsOccupied < 16
 
+end
+
+function Turtle.GetCapacity()
+    local capacity = 0
+    
+    for slot = 1, 16 do
+        capacity = capacity + turtle.getItemSpace()
+    end
+
+    return capacity
 end
 
 function Turtle.GetPartiallyStackedItems()
