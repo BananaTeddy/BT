@@ -1,3 +1,6 @@
+-- program to show Refined Storage capacity
+-- needs 3x1 Monitor blocks
+
 local bridge = peripheral.find('rsBridge')
 local monitor = peripheral.find('monitor')
 
@@ -33,7 +36,6 @@ while true do
     monitor.write('Fluids:')
     monitor.setCursorPos(1, 4)
     monitor.write(string.format('%i/%i (%.2f%%)', fluidCount, maxFluidCount, (fluidCount / maxFluidCount) * 100))
-  
 
-    sleep(30)    
+    sleep(30)
 end

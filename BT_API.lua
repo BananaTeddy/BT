@@ -1,17 +1,17 @@
 -- [BT_API]
 
-BTCore = {}
+BT_API = {}
 
-function BTCore.Initialize()
-    BTCore.version = 6
+function BT_API.Initialize()
+    BT_API.version = 6
 end
 
-function BTCore.GetVersion()
-    return BTCore.version
+function BT_API.GetVersion()
+    return BT_API.version
 end
 
 
-function BTCore.ReadLinesIntoTable(filepath)
+function BT_API.ReadLinesIntoTable(filepath)
     local lines = {}
 
     if fs.exists(filepath) then
@@ -31,7 +31,7 @@ function BTCore.ReadLinesIntoTable(filepath)
     return lines
 end
 
-function BTCore.WriteTableIntoFile(filepath, data)
+function BT_API.WriteTableIntoFile(filepath, data)
     local file = fs.open(filepath, 'w')
 
     for _, v in pairs(data) do
@@ -40,10 +40,10 @@ function BTCore.WriteTableIntoFile(filepath, data)
     file.close()
 end
 
-function BTCore.LoadTurtleAPI()
+function BT_API.LoadTurtleAPI()
     local turtleAPI = require('BT_TURTLE')
-    BTCore.Turtle = BTTurtle
-    BTCore.Turtle.FuelItems = BTCore.ReadLinesIntoTable('FUEL_ITEMS')
+    BT_API.Turtle = Turtle
+    BT_API.Turtle.FuelItems = BT_API.ReadLinesIntoTable('FUEL_ITEMS')
 end
 
-BTCore.Initialize()
+BT_API.Initialize()

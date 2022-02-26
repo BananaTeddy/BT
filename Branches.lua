@@ -10,13 +10,13 @@ if btCoreLoaded == false then
 end
 
 
-if BTCore.GetVersion() < 6 then
+if BT_API.GetVersion() < 6 then
     print("BananaTeddy API is outdated!");
     print('Please update using')
     print('wget https://raw.githubusercontent.com/BananaTeddy/ComputerCraft-Programs/main/BT_CORE.lua BT_CORE');
     error();
 end
-BTCore.LoadTurtleAPI()
+BT_API.LoadTurtleAPI()
 
 
 if #args ~= 2 then
@@ -54,28 +54,28 @@ local enderSlot = nil;
 local clearInventory;
 
 --prepare tables
-local desiredItems = BTCore.ReadLinesIntoTable('WHITELIST')
+local desiredItems = BT_API.ReadLinesIntoTable('WHITELIST')
 
 print('Whitelisted Items:')
 for _, v in pairs(desiredItems) do
     print(v)
 end
 
-local undesiredItems = BTCore.ReadLinesIntoTable('BLACKLIST')
+local undesiredItems = BT_API.ReadLinesIntoTable('BLACKLIST')
 
 print('Blacklisted Items: ')
 for _, v in pairs(undesiredItems) do
     print(v)
 end
 
-local fluids = BTCore.ReadLinesIntoTable('FLUIDS')
+local fluids = BT_API.ReadLinesIntoTable('FLUIDS')
 print('Fluids: ')
 for _, v in pairs(fluids) do
     print(v)
 end
 
 if turtle.getFuelLevel() < ROUTE_LENGTH then
-    BTCore.Turtle.Refuel(ROUTE_LENGTH - turtle.getFuelLevel())
+    BT_API.Turtle.Refuel(ROUTE_LENGTH - turtle.getFuelLevel())
     -- if we still have less than needed
     if turtle.getFuelLevel() < ROUTE_LENGTH then
         local deficit = ROUTE_LENGTH - turtle.getFuelLevel()
@@ -96,7 +96,7 @@ error('nope')
 
 function StackItems()
 
-    local partiallyStackedItems = BTCore.GetPartiallyStackedItems()
+    local partiallyStackedItems = BT_API.GetPartiallyStackedItems()
     if #partiallyStackedItems < 2 then
         -- we need at least 2 partially stacked items to move items between slots
         return
@@ -143,7 +143,7 @@ local function forward()
         local success, data = turtle.inspectDown();
         if success then
             --if theres a block beneath the turtle, check if its a liquid
-            for _, v in pairs(liquids) do
+            for _, v in pairs(fluids) do
                 if v == data.name then
                     turtle.select(1)
                     turtle.placeDown();
@@ -159,8 +159,8 @@ local function forward()
         end
         break;
     end
-    if BTCore.isInvFull("slot") then
-        BTCore.Refuel();
+    if BT_API.isInvFull("slot") then
+        BT_API.Refuel();
         clearInventory();
     end
 end

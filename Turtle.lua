@@ -1,16 +1,17 @@
 -- [BT_TURTLE]
 
-BTTurtle = {}
+Turtle = {}
 
-function BTTurtle.Initialize()
-    BTTurtle.version = 1
+function Turtle.Initialize()
+    Turtle.version = 1
+    Turtle.fuelItems = {}
 end
 
-function BTTurtle.GetVersion()
-    return BTTurtle.version
+function Turtle.GetVersion()
+    return Turtle.version
 end
 
-function BTTurtle.Refuel(limit)
+function Turtle.Refuel(limit)
     if limit == nil then
         print("Fuel threshold cannot be nil")
         return
@@ -21,9 +22,9 @@ function BTTurtle.Refuel(limit)
     for slot = 1, 16 do
         turtle.select(slot)
         local item = turtle.getItemDetail()
-        UpdateFuelList(item)
+        Turtle.UpdateFuelList(item)
         if item then
-            for _, v in pairs(fuelItems) do
+            for _, v in pairs(Turtle.fuelItems) do
                 if v == item.name then
                     while turtle.getFuelLevel() < limit do
                         if turtle.refuel(1) then
@@ -41,11 +42,11 @@ function BTTurtle.Refuel(limit)
     turtle.select(previousSlot)
 end
 
-function BTTurtle.RefuelMax(limit)
-    BTTurtle.Refuel(turtle.getFuelLimit())
+function Turtle.RefuelMax(limit)
+    Turtle.Refuel(turtle.getFuelLimit())
 end
 
-function BTTurtle.UpdateFuelList(item)
+function Turtle.UpdateFuelList(item)
     local previousSlot = turtle.getSelectedSlot()
 
     for slot = 1, 16 do
@@ -53,20 +54,20 @@ function BTTurtle.UpdateFuelList(item)
         local isFuel = turtle.refuel(0)
         if isFuel then
             local item = turtle.getItemDetail()
-            for _, v in pairs(BTTurtle.fuelItems) do
+            for _, v in pairs(Turtle.fuelItems) do
                 if v == item.name then
                     return
                 end
             end
             -- fuel item was not found in list
-            BTTurtle.fuelItems[#BTTurtle.fuelItems+1] = item.name
+            Turtle.fuelItems[#Turtle.fuelItems+1] = item.name
         end
     end
-    BTTurtle.WriteTableIntoFile('FUEL_ITEMS', BTTurtle.fuelItems)
+    Turtle.WriteTableIntoFile('FUEL_ITEMS', Turtle.fuelItems)
 end
 
 
-function BTTurtle.HasInventoryFreeSlot()
+function Turtle.HasInventoryFreeSlot()
 
     local slotsOccupied = 0
 
@@ -80,7 +81,7 @@ function BTTurtle.HasInventoryFreeSlot()
 
 end
 
-function BTTurtle.GetPartiallyStackedItems()
+function Turtle.GetPartiallyStackedItems()
     local items = {}
 
     for slot = 1, 16 do
@@ -95,4 +96,4 @@ function BTTurtle.GetPartiallyStackedItems()
     end
 end
 
-BTTurtle.Initialize()
+Turtle.Initialize()
