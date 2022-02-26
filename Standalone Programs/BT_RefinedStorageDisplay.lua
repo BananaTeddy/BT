@@ -9,6 +9,8 @@ local maxItemCount
 local fluidCount
 local maxFluidCount
 
+monitor.setTextColor(colors.green)
+
 while true do
     itemCount = 0
     maxItemCount = bridge.getMaxItemDiskStorage()
