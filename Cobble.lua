@@ -19,26 +19,6 @@ end
 local direction
 local mined = 0
 
-if FindEnderChest() == 'back' then
-    direction = 0
-else
-    direction = 1
-end
-
-BT_API.LoadTurtleAPI()
-
-while true do
-    if BT_API.Turtle.GetCapacity() > 0 then
-        Mine()
-        mined = mined + 1
-    else
-        -- inventory is full
-        DepositInventory()
-    end
-
-    WriteInfo(mined)
-end
-
 function FindEnderChest()
     if peripheral.isPresent('back') then
         if peripheral.hasType('enderstorage:ender_chest') then
@@ -84,4 +64,24 @@ function WriteInfo(minedBlocks)
     term.setCursorPos(1, 1)
     term.write('Mined ' .. minedBlocks .. ' blocks so far.')
 
+end
+
+if FindEnderChest() == 'back' then
+    direction = 0
+else
+    direction = 1
+end
+
+BT_API.LoadTurtleAPI()
+
+while true do
+    if BT_API.Turtle.GetCapacity() > 0 then
+        Mine()
+        mined = mined + 1
+    else
+        -- inventory is full
+        DepositInventory()
+    end
+
+    WriteInfo(mined)
 end
