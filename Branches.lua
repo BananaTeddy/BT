@@ -55,28 +55,32 @@ local clearInventory;
 --prepare tables
 print('Fuels: ')
 for _, v in pairs(BT_API.Turtle.fuelItems) do
-    print(v)
+    print('  ' .. v)
 end
+print('---------------')
 
 local desiredItems = BT_API.ReadLinesIntoTable('whitelist')
 
 print('Whitelisted Items:')
 for _, v in pairs(desiredItems) do
-    print(v)
+    print('  ' .. v)
 end
+print('---------------')
 
 local undesiredItems = BT_API.ReadLinesIntoTable('blacklist')
 
 print('Blacklisted Items: ')
 for _, v in pairs(undesiredItems) do
-    print(v)
+    print('  ' .. v)
 end
+print('---------------')
 
 local fluids = BT_API.ReadLinesIntoTable('fluids')
 print('Fluids: ')
 for _, v in pairs(fluids) do
-    print(v)
+    print('  ' .. v)
 end
+print('---------------')
 
 if turtle.getFuelLevel() < ROUTE_LENGTH then
     BT_API.Turtle.Refuel(ROUTE_LENGTH - turtle.getFuelLevel())
