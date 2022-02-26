@@ -4,19 +4,19 @@
 
 local args = {...}
 
-local btCoreLoaded = require('BT_CORE')
+local btCoreLoaded = require('BTCore')
 if btCoreLoaded == false then
     error('BT_CORE not loaded')
 end
 
 
-if BT_CORE.GetVersion() < 6 then
+if BTCore.GetVersion() < 6 then
     print("BananaTeddy API is outdated!");
     print('Please update using')
     print('wget https://raw.githubusercontent.com/BananaTeddy/ComputerCraft-Programs/main/BT_CORE.lua BT_CORE');
     error();
 end
-BT_CORE.LoadTurtleAPI()
+BTCore.LoadTurtleAPI()
 
 
 if #args ~= 2 then
@@ -54,28 +54,28 @@ local enderSlot = nil;
 local clearInventory;
 
 --prepare tables
-local desiredItems = BT_CORE.ReadLinesIntoTable('WHITELIST')
+local desiredItems = BTCore.ReadLinesIntoTable('WHITELIST')
 
 print('Whitelisted Items:')
 for _, v in pairs(desiredItems) do
     print(v)
 end
 
-local undesiredItems = BT_CORE.ReadLinesIntoTable('BLACKLIST')
+local undesiredItems = BTCore.ReadLinesIntoTable('BLACKLIST')
 
 print('Blacklisted Items: ')
 for _, v in pairs(undesiredItems) do
     print(v)
 end
 
-local fluids = BT_CORE.ReadLinesIntoTable('FLUIDS')
+local fluids = BTCore.ReadLinesIntoTable('FLUIDS')
 print('Fluids: ')
 for _, v in pairs(fluids) do
     print(v)
 end
 
 if turtle.getFuelLevel() < ROUTE_LENGTH then
-    BT_CORE.Turtle.Refuel(ROUTE_LENGTH - turtle.getFuelLevel())
+    BTCore.Turtle.Refuel(ROUTE_LENGTH - turtle.getFuelLevel())
     -- if we still have less than needed
     if turtle.getFuelLevel() < ROUTE_LENGTH then
         local deficit = ROUTE_LENGTH - turtle.getFuelLevel()
@@ -96,7 +96,7 @@ error('nope')
 
 function StackItems()
 
-    local partiallyStackedItems = BT_CORE.GetPartiallyStackedItems()
+    local partiallyStackedItems = BTCore.GetPartiallyStackedItems()
     if #partiallyStackedItems < 2 then
         -- we need at least 2 partially stacked items to move items between slots
         return
@@ -159,8 +159,8 @@ local function forward()
         end
         break;
     end
-    if BT_CORE.isInvFull("slot") then
-        BT_CORE.Refuel();
+    if BTCore.isInvFull("slot") then
+        BTCore.Refuel();
         clearInventory();
     end
 end

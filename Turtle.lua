@@ -1,16 +1,16 @@
 -- [BT_TURTLE]
 
-BT_TURTLE = {}
+BTTurtle = {}
 
-function BT_TURTLE.Initialize()
-    BT_TURTLE.version = 1
+function BTTurtle.Initialize()
+    BTTurtle.version = 1
 end
 
-function BT_TURTLE.GetVersion()
-    return BT_TURTLE.version
+function BTTurtle.GetVersion()
+    return BTTurtle.version
 end
 
-function BT_TURTLE.Refuel(limit)
+function BTTurtle.Refuel(limit)
     if limit == nil then
         print("Fuel threshold cannot be nil")
         return
@@ -41,11 +41,11 @@ function BT_TURTLE.Refuel(limit)
     turtle.select(previousSlot)
 end
 
-function BT_TURTLE.RefuelMax(limit)
-    BT_TURTLE.Refuel(turtle.getFuelLimit())
+function BTTurtle.RefuelMax(limit)
+    BTTurtle.Refuel(turtle.getFuelLimit())
 end
 
-function BT_TURTLE.UpdateFuelList(item)
+function BTTurtle.UpdateFuelList(item)
     local previousSlot = turtle.getSelectedSlot()
 
     for slot = 1, 16 do
@@ -53,20 +53,20 @@ function BT_TURTLE.UpdateFuelList(item)
         local isFuel = turtle.refuel(0)
         if isFuel then
             local item = turtle.getItemDetail()
-            for _, v in pairs(BT_TURTLE.fuelItems) do
+            for _, v in pairs(BTTurtle.fuelItems) do
                 if v == item.name then
                     return
                 end
             end
             -- fuel item was not found in list
-            BT_TURTLE.fuelItems[#BT_TURTLE.fuelItems+1] = item.name
+            BTTurtle.fuelItems[#BTTurtle.fuelItems+1] = item.name
         end
     end
-    BT_TURTLE.WriteTableIntoFile('FUEL_ITEMS', BT_TURTLE.fuelItems)
+    BTTurtle.WriteTableIntoFile('FUEL_ITEMS', BTTurtle.fuelItems)
 end
 
 
-function BT_TURTLE.HasInventoryFreeSlot()
+function BTTurtle.HasInventoryFreeSlot()
 
     local slotsOccupied = 0
 
@@ -80,7 +80,7 @@ function BT_TURTLE.HasInventoryFreeSlot()
 
 end
 
-function BT_TURTLE.GetPartiallyStackedItems()
+function BTTurtle.GetPartiallyStackedItems()
     local items = {}
 
     for slot = 1, 16 do
@@ -95,4 +95,4 @@ function BT_TURTLE.GetPartiallyStackedItems()
     end
 end
 
-BT_TURTLE.Initialize()
+BTTurtle.Initialize()
