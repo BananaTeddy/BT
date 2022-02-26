@@ -53,6 +53,7 @@ function DepositInventory()
         turtle.select(slot)
         turtle.drop()
     end
+
     turtle.select(1)
     turtle.turnRight()
     turtle.turnRight()
@@ -63,7 +64,6 @@ function WriteInfo(minedBlocks)
     term.clear()
     term.setCursorPos(1, 1)
     term.write('Mined ' .. minedBlocks .. ' blocks so far.')
-
 end
 
 if FindEnderChest() == 'back' then
@@ -78,10 +78,9 @@ while true do
     if BT_API.Turtle.GetCapacity() > 0 then
         Mine()
         mined = mined + 1
+        WriteInfo(mined)
     else
         -- inventory is full
         DepositInventory()
     end
-
-    WriteInfo(mined)
 end
