@@ -21,7 +21,7 @@ local mined = 0
 
 function FindEnderChest()
     if peripheral.isPresent('back') then
-        if peripheral.hasType('enderstorage:ender_chest') then
+        if peripheral.hasType('back', 'enderstorage:ender_chest') then
             return 'back'
         end
     end
