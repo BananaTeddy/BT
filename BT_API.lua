@@ -43,7 +43,7 @@ end
 function BT_API.LoadTurtleAPI()
     local turtleAPI = require('Turtle')
     BT_API.Turtle = Turtle
-    BT_API.Turtle.FuelItems = BT_API.ReadLinesIntoTable('fuels')
+    BT_API.Turtle.fuelItems = BT_API.ReadLinesIntoTable('fuels')
 end
 
 BT_API.Initialize()

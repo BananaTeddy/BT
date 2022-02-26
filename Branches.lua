@@ -13,7 +13,7 @@ end
 if BT_API.GetVersion() < 6 then
     print("BananaTeddy API is outdated!");
     print('Please update using')
-    print('wget https://raw.githubusercontent.com/BananaTeddy/ComputerCraft-Programs/main/BT_CORE.lua BT_CORE');
+    print('wget https://raw.githubusercontent.com/BananaTeddy/BT_API/main/Install.lua Install');
     error();
 end
 BT_API.LoadTurtleAPI()
@@ -58,21 +58,21 @@ for _, v in pairs(BT_API.Turtle.fuelItems) do
     print(v)
 end
 
-local desiredItems = BT_API.ReadLinesIntoTable('WHITELIST')
+local desiredItems = BT_API.ReadLinesIntoTable('whitelist')
 
 print('Whitelisted Items:')
 for _, v in pairs(desiredItems) do
     print(v)
 end
 
-local undesiredItems = BT_API.ReadLinesIntoTable('BLACKLIST')
+local undesiredItems = BT_API.ReadLinesIntoTable('blacklist')
 
 print('Blacklisted Items: ')
 for _, v in pairs(undesiredItems) do
     print(v)
 end
 
-local fluids = BT_API.ReadLinesIntoTable('FLUIDS')
+local fluids = BT_API.ReadLinesIntoTable('fluids')
 print('Fluids: ')
 for _, v in pairs(fluids) do
     print(v)
