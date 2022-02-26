@@ -47,23 +47,19 @@ function Turtle.RefuelMax(limit)
 end
 
 function Turtle.UpdateFuelList(item)
-    local previousSlot = turtle.getSelectedSlot()
-
-    for slot = 1, 16 do
-        turtle.select(slot)
-        local isFuel = turtle.refuel(0)
-        if isFuel then
-            local item = turtle.getItemDetail()
-            for _, v in pairs(Turtle.fuelItems) do
-                if v == item.name then
-                    return
-                end
+    local isFuel = turtle.refuel(0)
+    
+    if isFuel then
+        for _, v in pairs(Turtle.fuelItems) do
+            if v == item.name then
+                return
             end
-            -- fuel item was not found in list
-            Turtle.fuelItems[#Turtle.fuelItems+1] = item.name
         end
+
+        Turtle.fuelItems[#Turtle.fuelItems+1] = item.name
     end
-    Turtle.WriteTableIntoFile('FUEL_ITEMS', Turtle.fuelItems)
+
+    BT_API.WriteTableIntoFile('fuels', Turtle.fuelItems)
 end
 
 

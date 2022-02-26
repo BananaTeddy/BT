@@ -4,9 +4,9 @@
 
 local args = {...}
 
-local btCoreLoaded = require('BTCore')
+local btCoreLoaded = require('BT_API')
 if btCoreLoaded == false then
-    error('BT_CORE not loaded')
+    error('BT_API not loaded')
 end
 
 
@@ -20,13 +20,12 @@ BT_API.LoadTurtleAPI()
 
 
 if #args ~= 2 then
-    color = term.isColor();
-    if color then
-        term.setTextColor(colors.red);
+    if term.isColor() then
+        term.setTextColor(colors.red)
     end
-    print("Usage: branches <branches> <branchlength>");
-    term.setTextColor(colors.white);
-    error();
+    print("Usage: branches <branches> <branchlength>")
+    term.setTextColor(colors.white)
+    error()
 end
 
 -- constants
@@ -54,6 +53,11 @@ local enderSlot = nil;
 local clearInventory;
 
 --prepare tables
+print('Fuels: ')
+for _, v in pairs(BT_API.Turtle.fuelItems) do
+    print(v)
+end
+
 local desiredItems = BT_API.ReadLinesIntoTable('WHITELIST')
 
 print('Whitelisted Items:')

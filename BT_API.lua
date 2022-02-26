@@ -41,9 +41,9 @@ function BT_API.WriteTableIntoFile(filepath, data)
 end
 
 function BT_API.LoadTurtleAPI()
-    local turtleAPI = require('BT_TURTLE')
+    local turtleAPI = require('Turtle')
     BT_API.Turtle = Turtle
-    BT_API.Turtle.FuelItems = BT_API.ReadLinesIntoTable('FUEL_ITEMS')
+    BT_API.Turtle.FuelItems = BT_API.ReadLinesIntoTable('fuels')
 end
 
 BT_API.Initialize()
