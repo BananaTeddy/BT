@@ -53,7 +53,7 @@ while true do
     monitor.setCursorPos(1, 4)
     monitor.write(
         string.format(
-            '%i/%i (%.2f%%)',
+            '%s/%s (%.2f%%)',
             BT_API.ShortNumberString(fluidCount),
             BT_API.ShortNumberString(maxFluidCount),
             (fluidCount / maxFluidCount) * 100
