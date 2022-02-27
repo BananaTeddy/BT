@@ -40,7 +40,8 @@ while true do
     monitor.write('Items:')
     monitor.setCursorPos(1, 2)
     monitor.write(
-        string.format('%s/%s (%.2f%%)',
+        string.format(
+            '%s/%s (%.2f%%)',
             BT_API.ShortNumberString(itemCount),
             BT_API.ShortNumberString(maxItemCount),
             (itemCount / maxItemCount) * 100
@@ -50,7 +51,14 @@ while true do
     monitor.setCursorPos(1, 3)
     monitor.write('Fluids:')
     monitor.setCursorPos(1, 4)
-    monitor.write(string.format('%i/%i (%.2f%%)', fluidCount, maxFluidCount, (fluidCount / maxFluidCount) * 100))
+    monitor.write(
+        string.format(
+            '%i/%i (%.2f%%)',
+            BT_API.ShortNumberString(fluidCount),
+            BT_API.ShortNumberString(maxFluidCount),
+            (fluidCount / maxFluidCount) * 100
+        )
+    )
 
     sleep(30)
 end
