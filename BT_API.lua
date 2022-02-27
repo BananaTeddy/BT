@@ -45,7 +45,6 @@ function BT_API.ShortNumberString(int)
     while int > 1000 do
         int = int / 1000
         counter = counter + 1
-        print(counter)
     end
 
     local t = {
