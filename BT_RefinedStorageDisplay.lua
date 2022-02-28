@@ -2,12 +2,16 @@
 -- needs 3x1 Monitor blocks
 
 function main()
-    local bridge
-    local monitor
-    local oldTerm
-
     Initialize()
 
+    local bridge = peripheral.find('rsBridge')
+    local monitor = peripheral.find('monitor')
+    local oldTerm = term.redirect(monitor)
+
+    term.setTextColor(colors.green)
+    term.setBackgroundColor(colors.black)
+    monitor.setTextScale(0.5)
+    
     local itemCount
     local maxItemCount
 
@@ -32,7 +36,7 @@ function main()
                 (itemCount / maxItemCount) * 100
             )
         )
-        BT_API.ProgressBar(term, 3, 6, itemCount, maxItemCount, colors.green)
+        BT_API.ProgressBar(3, 6, itemCount, maxItemCount, colors.green)
 
         sleep(30)
     end
@@ -48,14 +52,7 @@ function Initialize()
         print('BananaTeddy API is outdated.');
         print('Please update from https://raw.githubusercontent.com/BananaTeddy/BT_API/main/Install.lua');
     end
-
-    bridge = peripheral.find('rsBridge')
-    monitor = peripheral.find('monitor')
-    monitor.setTextScale(0.5)
-
-    oldTerm = term.redirect(monitor)
-    term.setTextColor(colors.green)
-    term.setBackgroundColor(colors.black)
+    
 end
 
 main()
