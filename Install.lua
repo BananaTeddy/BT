@@ -17,5 +17,8 @@ local files = {
 
 for alias, file in pairs(files) do
     local url = baseUrl .. gitHubUser .. '/' .. project .. '/' .. branch .. '/' .. file
+    if fs.exists(alias) then
+        shell.run('rm ' .. alias)
+    end
     shell.run('wget ' .. url .. ' ' .. alias)
 end
