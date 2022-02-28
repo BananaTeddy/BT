@@ -63,4 +63,27 @@ function BT_API.LoadTurtleAPI()
     BT_API.Turtle.fuelItems = BT_API.ReadLinesIntoTable('fuels')
 end
 
+function BT_API.ProgressBar(target, yStart, barHeight, cur, max, color)
+    local bgColor = target.getBackGroundColor()
+
+    term.setBackgroundColor(colors.black)
+
+    local w, h = target.getSize()
+    paintutils.drawBox(2, yStart, w - 4 ,yStart + barHeight, colors.white)
+
+    local percent = cur / max
+    local barWidth = w - 6
+    local length = math.floor(percent * barWidth)
+
+    paintutils.drawFilledBox(
+        3,
+        yStart + 1,
+        length,
+        yStart + barHeight - 1,
+        color
+    )
+
+    target.setBackgroundColor(bgColor)
+end
+
 BT_API.Initialize()
