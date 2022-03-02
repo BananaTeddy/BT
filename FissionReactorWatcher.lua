@@ -7,13 +7,13 @@ local reactor
 local temperature
 
 function main()
-    BT_API.Log('App Started')
-    BT_API.Log('Trying to connecto to reactor')
+    BT_API.Log('FRW', 'App Started')
+    BT_API.Log('FRW', 'Trying to connecto to reactor')
     repeat
         reactor = peripheral.find('fissionReactorLogicAdapter')
         sleep(1)
     until reactor ~= nil
-    BT_API.Log('Connected to reactor')
+    BT_API.Log('FRW', 'Connected to reactor')
     
     while true do
 
@@ -31,7 +31,7 @@ function ConnectToReactor()
 end
 
 function SlowStartReactor()
-    BT_API.Log('Slow starting reactor')
+    BT_API.Log('FRW', 'Slow starting reactor')
     local burnrate = 0
 
     reactor.setBurnRate(0)
@@ -40,18 +40,18 @@ function SlowStartReactor()
         WatchTemperature()
         burnrate = burnrate + 1
         reactor.setBurnRate(burnrate)
-        BT_API.Log('Reactor burn rate reached ' .. burnrate .. ' mB/t')
+        BT_API.Log('FRW', 'Reactor burn rate reached ' .. burnrate .. ' mB/t')
         sleep(2)
     end
-    BT_API.Log('Slow starting reactor finished')
+    BT_API.Log('FRW', 'Slow starting reactor finished')
 end
 
 function WatchTemperature()
     temperature = reactor.getTemperature()
     if temperature > 600 then
-        BT_API.Log('Temperature too high: ' .. temperature)
+        BT_API.Log('FRW', 'Temperature too high: ' .. temperature)
         if reactor.getStatus() then
-            BT_API.Log('Shutdown reactor')
+            BT_API.Log('FRW', 'Shutdown reactor')
             reactor.scram()
         end
     end
