@@ -17,7 +17,7 @@ function main()
     
     while true do
 
-        if (reactor.getStatus() == false and reactor.getTemperature() < 350) then
+        if (reactor.getStatus() == false and reactor.getTemperature() < 370) then
             SlowStartReactor()
         end
         WatchTemperature()
