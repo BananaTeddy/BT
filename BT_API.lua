@@ -86,4 +86,8 @@ function BT_API.ProgressBar(yStart, barHeight, cur, max, color)
     term.current().setBackgroundColor(bgColor)
 end
 
+function BT_API.Log(program, message)
+    print('[' .. program .. '] ' .. os.date('%F %T') .. ' ' .. message)
+end
+
 BT_API.Initialize()

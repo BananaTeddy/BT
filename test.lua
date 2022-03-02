@@ -1,4 +1,15 @@
-local length = (668 / 2690) * 76
 
+function main()
+    local temperature = 50
+    print(temperature)
+    temperature = temperature + 1
+    print(temperature)
+    incrementTemperature()
+    print(temperature)
+end
 
-print(length)
+function incrementTemperature()
+    temperature = temperature + 10
+end
+
+main()
