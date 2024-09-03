@@ -50,7 +50,8 @@ end
 ---@param data table the data to be send
 ---@param responseHandler function the function to be executed when a response arrives
 ---@param waitTime? number the number of seconds to wait for a response. defaults to 3
-function BananaCore.Network.Client:SendAwaitResponse(data, responseHandler, waitTime)
+---@param timeOutHandler? function the function to be executed when the respond timeouts
+function BananaCore.Network.Client:SendAwaitResponse(data, responseHandler, waitTime, timeOutHandler)
     local machineId = os.getComputerID()
     local packet = BananaCore.Network.Packet:new({
         machineId = machineId,
@@ -103,6 +104,11 @@ function BananaCore.Network.Client:SendAwaitResponse(data, responseHandler, wait
     if (timeOut == true) then
         local printUtil = BananaCore.GUI.PrintUtil:new()
         printUtil:Error("Response took too long.")
+
+        if (timeOutHandler) then
+            timeOutHandler()
+        end
+
         return
     end
     
