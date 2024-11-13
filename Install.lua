@@ -23,7 +23,7 @@ local files = {
     ["GUI/PrintUtil"] = "GUI/PrintUtil.lua",
     ["GUI/ProgressBar"] = "GUI/ProgressBar.lua",
 
-    ["branches"] = "Programs/Branches.lua"
+    ["branches"] = "Programs/branches.lua"
 }
 
 for alias, file in pairs(files) do
